@@ -1,0 +1,5 @@
+x=int(input())
+if 0<x<49:print("незадовільно")
+elif 50<x<69:print("задовільно")
+elif 70<x<89:print("добре")
+elif 90<x<100:print("відмінно")
