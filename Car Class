@@ -1,0 +1,62 @@
+class Engine:
+    def __init__(self, power, volume):
+        self.power = power      
+        self.volume = volume    
+        self.is_running = False
+    
+    def start_engine(self):
+        if not self.is_running:
+            self.is_running = True
+            print("Двигун запущено.")
+        else:
+            print("Двигун уже працює.")
+    
+    def stop_engine(self):
+        if self.is_running:
+            self.is_running = False
+            print("Двигун вимкнено.")
+        else:
+            print("Двигун уже вимкнений.")
+
+class Wheels:
+    def __init__(self, number_of_wheels, diameter):
+        self.number_of_wheels = number_of_wheels  
+        self.diameter = diameter                  
+    
+    def check_wheels(self):
+        print(f"Автомобіль має {self.number_of_wheels} колеса діаметром {self.diameter} дюймів.")
+        
+class Body:
+    def __init__(self, color, body_type):
+        self.color = color        
+        self.body_type = body_type 
+    
+    def change_color(self, new_color):
+        self.color = new_color
+        print(f"Колір кузова змінено на {self.color}.")
+
+class Car(Engine, Wheels, Body):
+    def __init__(self, power, volume, number_of_wheels, diameter, color, body_type, brand):
+        
+        Engine.__init__(self, power, volume)
+        Wheels.__init__(self, number_of_wheels, diameter)
+        Body.__init__(self, color, body_type)
+        self.brand = brand   
+    
+    def car_info(self):
+        print(f"Марка: {self.brand}")
+        print(f"Потужність двигуна: {self.power} к.с.")
+        print(f"Об'єм двигуна: {self.volume} л")
+        print(f"Кількість коліс: {self.number_of_wheels}")
+        print(f"Діаметр коліс: {self.diameter} дюймів")
+        print(f"Колір: {self.color}")
+        print(f"Тип кузова: {self.body_type}")
+
+
+my_car = Car(power=300, volume=3.5, number_of_wheels=4, diameter=18, color="Червоний", body_type="Седан", brand="Mercedes")
+
+my_car.car_info()
+my_car.start_engine()
+my_car.check_wheels()
+my_car.change_color("Синій")
+my_car.stop_engine()
