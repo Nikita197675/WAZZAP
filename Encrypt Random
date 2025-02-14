@@ -1,0 +1,55 @@
+import random
+
+class Cipher:
+    def __init__(self):
+        self.__numbers = self.__input_numbers()  
+        self.__result = self.__encrypt()  
+
+    def __input_numbers(self):
+        numbers = []
+        print("Введіть числа для шифрування (щоб завершити, натисніть Enter):")
+        
+        while True:
+            user_input = input("Число: ")
+            if user_input == "":  
+                if numbers:
+                    break
+                else:
+                    print("Ви не ввели жодного числа. Спробуйте ще раз.")
+                    continue
+            
+            try:
+                number = float(user_input)
+                numbers.append(number)
+            except ValueError:
+                print("Помилка! Введіть коректне число.")
+        
+        return numbers
+
+    def __encrypt(self):
+        operations = ["+", "-", "*", "/"]
+        operation = random.choice(operations) 
+        
+        
+        result = self.__numbers[0]
+        for num in self.__numbers[1:]:
+            if operation == "+":
+                result += num
+            elif operation == "-":
+                result -= num
+            elif operation == "*":
+                result *= num
+            elif operation == "/" and num != 0:
+                result /= num
+            else:
+                result = "Помилка: ділення на нуль"
+        
+        print(f"Виконано операцію: {operation}")  
+        return round(result, 2)  
+
+    def __str__(self):
+        return f"Результат обчислень: {self.__result}"
+
+
+cipher = Cipher()
+print(cipher)
