@@ -1,0 +1,60 @@
+class Human:
+    def __init__(self, name="Human"):
+        self.name = name
+        self.house = None
+
+    def move_to_house(self, house):
+        if self.house:
+            self.house.remove_resident(self)
+        house.add_resident(self)
+        self.house = house
+        print(f"{self.name} переселився в будинок {house.address}")
+
+    def leave_house(self):
+        if self.house:
+            print(f"{self.name} покидає будинок {self.house.address}")
+            self.house.remove_resident(self)
+            self.house = None
+        else:
+            print(f"{self.name} не має будинку")
+
+class House:
+    def __init__(self, address):
+        self.address = address
+        self.residents = []
+
+    def add_resident(self, human):
+        self.residents.append(human)
+
+    def remove_resident(self, human):
+        if human in self.residents:
+            self.residents.remove(human)
+
+    def print_residents(self):
+        if self.residents:
+            print(f"Мешканці будинку {self.address}:")
+            for resident in self.residents:
+                print(resident.name)
+        else:
+            print(f"У будинку {self.address} ніхто не живе")
+
+nick = Human("Nick")
+kate = Human("Kate")
+house1 = House("вул. Шевченка, 10")
+house2 = House("вул. Шевченка, 5")
+
+nick.move_to_house(house1)
+kate.move_to_house(house1)
+
+house1.print_residents()
+
+kate.move_to_house(house2)
+
+house1.print_residents()
+house2.print_residents()
+
+
+nick.leave_house()
+
+
+house1.print_residents()
