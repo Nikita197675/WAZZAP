@@ -1,0 +1,14 @@
+class IterableWithGenerator:
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+
+    def __iter__(self):
+        for value in range(self.start, self.end):
+            yield value
+
+
+iterable = IterableWithGenerator(1, 5)
+
+for num in iterable:
+    print(num)
