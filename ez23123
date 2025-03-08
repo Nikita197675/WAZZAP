@@ -1,0 +1,43 @@
+import requests
+import tkinter as tk
+from tkinter import ttk
+
+class CC:
+    def __init__(BANK):
+        BANK.api_url = 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?valcode=USD&json'
+        BANK.usd_rate = BANK.get_usd()
+
+    def get_usd(BANK):
+        response = requests.get(BANK.api_url)
+        data = response.json()
+        return data[0]['rate']
+
+    def convert_uah_usd(BANK, uah):
+        return uah / BANK.usd_rate
+
+def cc():
+    uah = float(euah.get())
+    usd = converter.convert_uah_usd(uah)
+    lr.config(text=f"{uah} гривень = {usd:.2f} доларів США")
+
+converter = CC()
+
+root = tk.Tk()
+root.title("Конвертер валюти")
+
+frame = ttk.Frame(root, padding="10")
+frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
+
+luah = ttk.Label(frame, text="Сума в гривнях:")
+luah.grid(row=0, column=0, padx=5, pady=5)
+
+euah = ttk.Entry(frame)
+euah.grid(row=0, column=1, padx=5, pady=5)
+
+bc = ttk.Button(frame, text="Конвертувати", command=cc)
+bc.grid(row=1, column=0, columnspan=2, pady=10)
+
+lr = ttk.Label(frame, text="")
+lr.grid(row=2, column=0, columnspan=2, pady=5)
+
+root.mainloop()
